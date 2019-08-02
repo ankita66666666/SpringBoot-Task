@@ -1,3 +1,6 @@
+
+
+
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
@@ -6,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * @Service indicates annotated class is a service which hold business logic in the Service layer
+ */
 @Service
 public class TrackServiceImpl implements TrackService {
-    public TrackServiceImpl() {
-    }
 
-    TrackRepository trackRepository;
+    private TrackRepository trackRepository;
+
 
     @Autowired
     public TrackServiceImpl(TrackRepository trackRepository) {
@@ -26,46 +30,38 @@ public class TrackServiceImpl implements TrackService {
         return savedTrack;
     }
 
-
-    @Override
-    public Track updateTrack(int id, Track track) {
-        Track updateTrack = trackRepository.findById(id).get();
-        updateTrack.setComments(track.getComments());
-        return updateTrack;
-    }
-
     @Override
     public Track getTrackById(int id) {
-        Track getTrackById = trackRepository.findById(id).get();
-        return getTrackById;
+        Track retrieveTrackById = trackRepository.findById(id).get();
+        return retrieveTrackById;
     }
 
     @Override
     public List<Track> getAllTracks() {
-        List<Track> getAllTracks = trackRepository.findAll();
         return trackRepository.findAll();
     }
 
-    @Override
-    public List<Track> searchByName(String Name) {
 
-        return trackRepository.searchByName(Name);
+    @Override
+    public void deleteTrackById(int id) {
+        trackRepository.deleteById(id);
     }
 
-    /**
-     * Search tracks by Name
-     *
-     * @return List of tracks found with the given name
-     */
 
     @Override
-    public Optional<Track> deleteTrackById(int id) {
-        Optional<Track> optional = trackRepository.findById(id);
-        if (optional.isPresent()) {
-            trackRepository.deleteById(id);
-        }
+    public void deleteAllTracks() {
+        trackRepository.deleteAll();
+    }
 
-        return optional;
+    @Override
+    public Track updateTrackById(int id, Track track) {
+        Track getTrack = trackRepository.findById(id).get();
+        getTrack.setComments(track.getComments());
+        return trackRepository.save(getTrack);
+    }
 
+    @Override
+    public List<Track> getTrackByName(String trackName) {
+        return null;
     }
 }

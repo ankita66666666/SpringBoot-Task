@@ -1,29 +1,32 @@
+
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
+import exceptions.TrackAlreadyExistExceptions;
+import exceptions.TrackNotFoundExceptions;
 
 import java.util.List;
-import java.util.Optional;
-
 
 public interface TrackService {
+    //Created abstract method
+    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions;
 
-    public Track saveTrack(Track track);
 
-    public Optional<Track> deleteTrackById(int id);
+    public Track getTrackById(int id) throws TrackNotFoundExceptions;
 
-    public Track updateTrack(int id, Track track);
-
-    public Track getTrackById(int id);
 
     public List<Track> getAllTracks();
 
-    public List<Track> searchByName(String Name);
+    public void deleteTrackById(int id) throws TrackNotFoundExceptions;
+
+    public void deleteAllTracks();
 
 
+    public Track updateTrackById(int id, Track track) throws TrackNotFoundExceptions;
+
+    public List<Track> getTrackByName(String trackName) throws TrackNotFoundExceptions;
 
 }
-
 
 
 

@@ -3,24 +3,24 @@ package com.stackroute.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
+/**Entity annotated class will have the ability to represent objects in the database*/
 @Entity
 public class Track {
+    public Track() {
 
+    }
+
+    public Track(int id, String trackName, String comments) {
+        this.id = id;
+        this.trackName = trackName;
+        this.comments = comments;
+    }
+
+    /**Id annotation make id variable as Primary key*/
     @Id
     private int id;
-    private String name;
+    private String trackName;
     private String comments;
-
-    public Track() {
-    }
-
-    public Track(int id, String name, String comments) {
-        this.id = id;
-        this.name = name;
-        this.comments = comments;
-
-    }
 
     public int getId() {
         return id;
@@ -30,12 +30,12 @@ public class Track {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTrackName() {
+        return trackName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTrackName(String trackName) {
+        this.trackName = trackName;
     }
 
     public String getComments() {
@@ -44,16 +44,6 @@ public class Track {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Track{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", comments=" + comments +
-                '}';
     }
 }
 

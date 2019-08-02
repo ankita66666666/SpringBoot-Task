@@ -1,22 +1,25 @@
+
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
 import com.stackroute.service.TrackService;
+import exceptions.TrackAlreadyExistExceptions;
+import exceptions.TrackNotFoundExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/")
-public class TrackController {
-    private TrackService trackService;
 
-    public TrackController() {
-    }
+
+@RequestMapping(value = "api/v1")
+public class TrackController {
+
+    public TrackService trackService;
+
 
     @Autowired
     public TrackController(TrackService trackService) {
@@ -25,49 +28,98 @@ public class TrackController {
 
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
-        Track savedTrack = trackService.saveTrack(track);
-        return new ResponseEntity<>(savedTrack, HttpStatus.OK);
+        ResponseEntity responseEntity;
+//using try block of code
+ // Catch block for catching exception here
+
+        try {
+            Track savedTrack = trackService.saveTrack(track);
+            responseEntity = new ResponseEntity<>(savedTrack, HttpStatus.CREATED);
+        } catch (TrackAlreadyExistExceptions ex) {
+            responseEntity = new ResponseEntity(ex.getMessage(), HttpStatus.CONFLICT);
+            ex.printStackTrace();
+        }
+        return responseEntity;
     }
+
 
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id) {
-        System.out.println(id);
-        Track retrivedTrack = trackService.getTrackById(id);
-        return new ResponseEntity<Track>(retrivedTrack, HttpStatus.OK);
-
-
+    public ResponseEntity<?> getTrackById(@PathVariable int id) {
+        ResponseEntity responseEntity;
+        /**Try this block of code else catch the exception*/
+        try {
+            Track retrieveTrackById = trackService.getTrackById(id);
+            responseEntity = new ResponseEntity<>(retrieveTrackById, HttpStatus.FOUND);
+        } catch (TrackNotFoundExceptions ex) {
+            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+            ex.printStackTrace();
+        }
+        return responseEntity;
     }
-
-    @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
-        Optional<Track> tracksList = (Optional<Track>) trackService.deleteTrackById(id);
-        return new ResponseEntity<>(tracksList, HttpStatus.OK);
-    }
-
-    @PutMapping("track")
-    public ResponseEntity<?> updateTrackById(@PathVariable("id") int id) {
-        Optional<Track> tracksList = (Optional<Track>) trackService.deleteTrackById(id);
-        return new ResponseEntity<>(tracksList, HttpStatus.OK);
-    }
-
 
     @GetMapping("track")
     public ResponseEntity<?> getAllTracks() {
-        List<Track> retrivedTrack = (List<Track>) trackService.getAllTracks();
-        return new ResponseEntity<List<Track>>(retrivedTrack, HttpStatus.OK);
-
+        ResponseEntity responseEntity;
+        /**Try this block of code else catch the exception*/
+        try {
+            List<Track> retrieveTracks = trackService.getAllTracks();
+            responseEntity = new ResponseEntity<>(retrieveTracks, HttpStatus.FOUND);
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
-    /**
-     * Search Track By name.
-     * @param trackName Name of the track to search.
-     * @return List of tracks
-     */
-    @GetMapping("tracks/{trackName}")
-    public ResponseEntity<?> searchTrackByName(@PathVariable String trackName) {
-        return new ResponseEntity<>(trackService.searchByName(trackName), HttpStatus.FOUND);
+    @DeleteMapping("track/{id}")
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
+        ResponseEntity responseEntity;
+
+        try {
+            trackService.deleteTrackById(id);
+            responseEntity = new ResponseEntity<List<Track>>(trackService.getAllTracks(), HttpStatus.OK);
+        } catch (TrackNotFoundExceptions ex) {
+            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
+
+    @DeleteMapping("track")
+    public ResponseEntity<?> deleteAllTracks() {
+        ResponseEntity responseEntity;
+        /**Try this block of code else catch the exception*/
+        try {
+            trackService.deleteAllTracks();
+            return new ResponseEntity<List<Track>>(trackService.getAllTracks(), HttpStatus.OK);
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity<>("No tracks to delete", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @PutMapping("track/{id}")
+    public ResponseEntity<?> UpdateTrackById(@PathVariable int id, @RequestBody Track track) {
+        ResponseEntity responseEntity;
+        /**Try this block of code else catch the exception*/
+        try {
+            Track updatedTrack = trackService.updateTrackById(id, track);
+            return new ResponseEntity<>(updatedTrack, HttpStatus.ACCEPTED);
+        } catch (TrackNotFoundExceptions ex) {
+            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("track/search/{trackName}")
+    public ResponseEntity<?> getTrackByName(@PathVariable String trackName) {
+        ResponseEntity responseEntity;
+        try {
+            List<Track> retrieveTrackByNAme = trackService.getTrackByName(trackName);
+            responseEntity = new ResponseEntity<>(retrieveTrackByNAme, HttpStatus.FOUND);
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+
 }
-
-
-

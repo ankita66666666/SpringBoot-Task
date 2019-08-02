@@ -46,8 +46,7 @@ public class TrackController {
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) {
         ResponseEntity responseEntity;
-        /**Try this block of code else catch the exception*/
-        try {
+          try {
             Track retrieveTrackById = trackService.getTrackById(id);
             responseEntity = new ResponseEntity<>(retrieveTrackById, HttpStatus.FOUND);
         } catch (TrackNotFoundExceptions ex) {
@@ -60,12 +59,12 @@ public class TrackController {
     @GetMapping("track")
     public ResponseEntity<?> getAllTracks() {
         ResponseEntity responseEntity;
-        /**Try this block of code else catch the exception*/
+
         try {
             List<Track> retrieveTracks = trackService.getAllTracks();
             responseEntity = new ResponseEntity<>(retrieveTracks, HttpStatus.FOUND);
-        } catch (Exception exception) {
-            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception ex) {
+            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -86,11 +85,11 @@ public class TrackController {
     @DeleteMapping("track")
     public ResponseEntity<?> deleteAllTracks() {
         ResponseEntity responseEntity;
-        /**Try this block of code else catch the exception*/
+
         try {
             trackService.deleteAllTracks();
             return new ResponseEntity<List<Track>>(trackService.getAllTracks(), HttpStatus.OK);
-        } catch (Exception exception) {
+        } catch (Exception ex) {
             responseEntity = new ResponseEntity<>("No tracks to delete", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -99,7 +98,7 @@ public class TrackController {
     @PutMapping("track/{id}")
     public ResponseEntity<?> UpdateTrackById(@PathVariable int id, @RequestBody Track track) {
         ResponseEntity responseEntity;
-        /**Try this block of code else catch the exception*/
+
         try {
             Track updatedTrack = trackService.updateTrackById(id, track);
             return new ResponseEntity<>(updatedTrack, HttpStatus.ACCEPTED);
@@ -115,8 +114,8 @@ public class TrackController {
         try {
             List<Track> retrieveTrackByNAme = trackService.getTrackByName(trackName);
             responseEntity = new ResponseEntity<>(retrieveTrackByNAme, HttpStatus.FOUND);
-        } catch (Exception exception) {
-            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }

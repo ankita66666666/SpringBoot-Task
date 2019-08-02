@@ -8,7 +8,7 @@ import exceptions.TrackNotFoundExceptions;
 import java.util.List;
 
 public interface TrackService {
-    //Created abstract method
+    //Created abstract method for all.
     public Track saveTrack(Track track) throws TrackAlreadyExistExceptions;
 
 

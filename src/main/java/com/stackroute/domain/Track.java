@@ -3,7 +3,7 @@ package com.stackroute.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-/**Entity annotated class will have the ability to represent objects in the database*/
+//Entity annotated class will have the ability to represent objects in the database
 @Entity
 public class Track {
     public Track() {
@@ -16,7 +16,7 @@ public class Track {
         this.comments = comments;
     }
 
-    /**Id annotation make id variable as Primary key*/
+    //Id annotation make id variable as Primary key
     @Id
     private int id;
     private String trackName;

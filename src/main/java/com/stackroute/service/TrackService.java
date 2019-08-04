@@ -11,12 +11,12 @@ public interface TrackService {
 
 //      AbstractMethod to save a track
 
-    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions;
+    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions, TrackNotFoundExceptions;
 
 
 //      AbstractMethod to get a track by Id
 
-    public Track getTrackById(int id) throws TrackNotFoundExceptions;
+    public Track getTrackById(int id) throws TrackNotFoundExceptions, TrackAlreadyExistExceptions;
 
 
 //      AbstractMethod to get all tracks
@@ -26,7 +26,7 @@ public interface TrackService {
 
 //      AbstractMethod to delete track by Id
 
-    public void deleteTrackById(int id) throws TrackNotFoundExceptions;
+    public Track deleteTrackById(int id) throws TrackNotFoundExceptions;
 
 
 //     AbstractMethod to delete all tracks
@@ -40,6 +40,10 @@ public interface TrackService {
 
 
 //      AbstractMethod to get track by Name
+
+    Track updateTrack(int id, Track track);
+
+    List<Track> getAllTrack();
 
     public List<Track> getTrackByName(String trackName) throws TrackNotFoundExceptions;
 

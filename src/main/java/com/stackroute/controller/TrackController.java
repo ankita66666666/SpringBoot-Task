@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 
 import java.util.List;
 
@@ -20,22 +22,19 @@ import java.util.List;
 @RequestMapping(value = "api/v1")
 public class TrackController {
 
-    public TrackService trackService;
-
-
-//      Constructor based Dependency injection to inject TrackService into controller
-
+    private TrackService trackService;
     @Autowired
-    public TrackController(TrackService trackService) {
+    public TrackController(@Qualifier("main") TrackService trackService) {
         this.trackService = trackService;
     }
 
+//      Constructor based Dependency injection to inject TrackService into controller
 
 
 //      PostMapping Annotation for mapping HTTP POST requests onto specific handler methods.
 
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistExceptions {
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistExceptions, TrackNotFoundExceptions {
 
         Track savedTrack = trackService.saveTrack(track);
         return new ResponseEntity<>(savedTrack, HttpStatus.CREATED);
@@ -46,7 +45,7 @@ public class TrackController {
      * GetMapping Annotation for mapping HTTP GET requests onto specific handler methods.
      */
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundExceptions {
+    public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundExceptions, TrackAlreadyExistExceptions {
 
         Track retrieveTrackById = trackService.getTrackById(id);
         return new ResponseEntity<>(retrieveTrackById, HttpStatus.FOUND);

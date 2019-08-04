@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Integer> {
@@ -14,5 +15,11 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
 //    Ref: https://www.youtube.com/watch?v=WTEGvLXxyOY
     @Query("select track from Track track where track.name =%?1%")
     List<Track> searchByName(String Name);
+
+    Track findTrackByName(String name);
+
+    Optional<Track> findTrackById(int id);
+
+    void deleteTrackById(int id);
 }
 

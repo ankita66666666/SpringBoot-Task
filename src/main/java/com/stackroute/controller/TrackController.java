@@ -1,16 +1,14 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
-import com.stackroute.service.TrackService;
 import com.stackroute.exceptions.TrackAlreadyExistExceptions;
 import com.stackroute.exceptions.TrackNotFoundExceptions;
+import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class TrackController {
 
     private TrackService trackService;
     @Autowired
-    public TrackController(@Qualifier("main") TrackService trackService) {
+    public TrackController( TrackService trackService) {
         this.trackService = trackService;
     }
 

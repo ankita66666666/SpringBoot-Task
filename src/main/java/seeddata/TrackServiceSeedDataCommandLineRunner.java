@@ -4,6 +4,7 @@ import com.stackroute.domain.Track;
 import com.stackroute.service.TrackService;
 import exceptions.TrackAlreadyExistExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ public class TrackServiceSeedDataCommandLineRunner implements CommandLineRunner 
     TrackService trackService;
 
     @Autowired
-    public TrackServiceSeedDataCommandLineRunner(TrackService trackService) {
+    public TrackServiceSeedDataCommandLineRunner(@Qualifier("dummy") TrackService trackService) {
         this.trackService = trackService;
     }
 

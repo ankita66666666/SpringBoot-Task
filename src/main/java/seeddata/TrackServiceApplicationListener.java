@@ -5,6 +5,7 @@ import com.stackroute.service.TrackService;
 import exceptions.TrackAlreadyExistExceptions;
 import exceptions.TrackNotFoundExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.PropertySource;
@@ -19,7 +20,7 @@ public class TrackServiceApplicationListener implements ApplicationListener<Cont
     private TrackService trackService;
 
     @Autowired
-    public TrackServiceApplicationListener(TrackService trackService) {
+    public TrackServiceApplicationListener(@Qualifier("main") TrackService trackService) {
         this.trackService = trackService;
     }
 

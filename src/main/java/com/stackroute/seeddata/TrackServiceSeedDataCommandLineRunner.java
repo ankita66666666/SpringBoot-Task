@@ -1,8 +1,8 @@
-package seeddata;
+package com.stackroute.seeddata;
 
 import com.stackroute.domain.Track;
 import com.stackroute.service.TrackService;
-import exceptions.TrackAlreadyExistExceptions;
+import com.stackroute.exceptions.TrackAlreadyExistExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;

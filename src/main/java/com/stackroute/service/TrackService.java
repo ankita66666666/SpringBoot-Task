@@ -1,8 +1,8 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
-import exceptions.TrackAlreadyExistExceptions;
-import exceptions.TrackNotFoundExceptions;
+import com.stackroute.exceptions.TrackAlreadyExistExceptions;
+import com.stackroute.exceptions.TrackNotFoundExceptions;
 
 import java.util.List;
 

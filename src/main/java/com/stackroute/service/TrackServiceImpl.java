@@ -53,9 +53,9 @@ public class TrackServiceImpl implements TrackService {
     // method to delete track with particular id
     @Override
     public Track deleteTrackById(int id) {
-        Optional<Track> value = trackRepository.findTrackById(id);
+        Optional<Track> value = trackRepository.findById(id);
         if (value.isPresent()) {
-            trackRepository.deleteTrackById(id);
+            trackRepository.deleteById(id);
             return value.get();
         } else
             return null;
@@ -87,8 +87,8 @@ public class TrackServiceImpl implements TrackService {
     }
     //method to get track by their name
     @Override
-    public Track getTrackByName(String name) {
-        return trackRepository.findTrackByName(name);
+    public List<Track> getTrackByName(String name) {
+        return trackRepository.searchByName(name);
     }
 
 }

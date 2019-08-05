@@ -2,8 +2,10 @@ package com.stackroute;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
+@PropertySource("application-prod.properties")
 
 public class TrackServiceApplication {
 
@@ -11,5 +13,6 @@ public class TrackServiceApplication {
             SpringApplication.run(TrackServiceApplication.class, args);
         }
     }
+
 
 

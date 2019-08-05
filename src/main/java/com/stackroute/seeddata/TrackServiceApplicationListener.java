@@ -7,12 +7,13 @@ import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-//@PropertySource("classpath:application-prod.properties")
+@PropertySource("classpath:application-mongo.properties")
 public class TrackServiceApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
     //   TrackService to perform database operations.
     private TrackService trackService;

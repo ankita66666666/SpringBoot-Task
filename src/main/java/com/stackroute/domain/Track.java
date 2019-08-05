@@ -1,12 +1,15 @@
 package com.stackroute.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 //Entity annotated class will have the ability to represent objects in the database
-@Entity
+//@Entity
+@Document(collection = "tracks")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -11,7 +11,7 @@ public interface TrackService {
 
 //      AbstractMethod to save a track
 
-    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions, TrackNotFoundExceptions;
+    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions;
 
 
 //      AbstractMethod to get a track by Id

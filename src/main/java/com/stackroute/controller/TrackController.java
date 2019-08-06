@@ -32,10 +32,9 @@ public class TrackController {
 //      PostMapping Annotation for mapping HTTP POST requests onto specific handler methods.
 
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistExceptions, TrackNotFoundExceptions {
-
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistExceptions {
         Track savedTrack = trackService.saveTrack(track);
-        return new ResponseEntity<>(savedTrack, HttpStatus.CREATED);
+        return new ResponseEntity<Track>(savedTrack, HttpStatus.CREATED);
     }
 
 

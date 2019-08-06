@@ -2,7 +2,6 @@ package com.stackroute.seeddata;
 
 import com.stackroute.domain.Track;
 import com.stackroute.exceptions.TrackAlreadyExistExceptions;
-import com.stackroute.exceptions.TrackNotFoundExceptions;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +36,7 @@ public class TrackServiceApplicationListener implements ApplicationListener<Cont
             Track track3 = new Track(3, "Track 3", "Comment 3");*/
         try {
             trackService.saveTrack(new Track(id, environment.getProperty("trackName"), environment.getProperty("comments")));
-        } catch (TrackAlreadyExistExceptions | TrackNotFoundExceptions trackAlreadyExistExceptions) {
+        } catch (TrackAlreadyExistExceptions  trackAlreadyExistExceptions) {
             trackAlreadyExistExceptions.printStackTrace();
         }
     }

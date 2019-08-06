@@ -27,7 +27,7 @@ import java.util.List;
         }
 
         @Override
-        public Track saveTrack(Track track) throws TrackAlreadyExistExceptions, TrackNotFoundExceptions {
+        public Track saveTrack(Track track) throws TrackAlreadyExistExceptions {
             return null;
         }
 

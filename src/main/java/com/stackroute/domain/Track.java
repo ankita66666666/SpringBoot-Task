@@ -3,6 +3,7 @@ package com.stackroute.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 
 
 public class Track {
@@ -33,6 +35,12 @@ public class Track {
     private String trackName;
     private String comments;
 //
+
+}
+
+  //  public String saveTrack(Object any) {
+
+
 //    @Override
 //    public int size() {
 //        return 0;
@@ -170,7 +178,10 @@ public class Track {
 //
 //    public void setComments(String comments) {
 //        this.comments = comments;
+////    }
 //    }
-}
+////
 
 
+
+//}

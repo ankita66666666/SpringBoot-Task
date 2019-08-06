@@ -38,13 +38,17 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public List<Track> getAllTracks() {
-        return null;
+        return trackRepository.findAll();
     }
 
     @Override
-    public Track saveTrack(Track track) throws TrackNotFoundExceptions {
+    public Track saveTrack(Track track) throws TrackAlreadyExistExceptions {
         if(trackRepository.existsById(track.getId())) {
-            throw new TrackNotFoundExceptions("track is not present");
+            throw new TrackAlreadyExistExceptions("track is not present");
+        }
+        Track savedTrack = trackRepository.save(track);
+        if (savedTrack==null) {
+            throw new TrackAlreadyExistExceptions("Track is null");
         }
         return trackRepository.save(track);
 
